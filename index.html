@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The War Room Experience | Elite Training by Leanda Talbot</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #030303;
+            --text: #ffffff;
+            --muted: #888888;
+            --accent: #E10600;
+            --accent-glow: rgba(225, 6, 0, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.05);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Noise Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 8vw, 7.5rem);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 24px;
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .highlight {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .accent-text {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 30px var(--accent-glow);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover::before {
+            transform: scaleY(1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text);
+            box-shadow: none;
+        }
+
+        /* Layout & Sections */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-separator {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .split {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(3, 3, 3, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            opacity: 0.5;
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            margin: 0 auto 40px;
+            font-size: 1.25rem;
+        }
+
+        /* Sponsors */
+        .sponsors {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.01);
+            text-align: center;
+        }
+
+        .sponsors p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin: 0 auto 24px;
+            color: #666;
+        }
+
+        .sponsors-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+        
+        .sponsors-grid:hover {
+            opacity: 0.8;
+        }
+
+        .sponsor-logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        /* Cards */
+        .card {
+            padding: 40px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            border-radius: 4px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: rgba(225, 6, 0, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+        
+        .card-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-number {
+            color: rgba(225, 6, 0, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+
+        /* Quote Section */
+        .quote-box {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 6rem;
+            color: var(--accent);
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-family: var(--font-display);
+            line-height: 1.3;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+
+        /* Testimonials */
+        .stars {
+            color: var(--accent);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-author {
+            margin-top: 24px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .testimonial-role {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* Offer / Pricing */
+        .offer-wrapper {
+            position: relative;
+        }
+
+        .offer-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .offer {
+            border: 1px solid rgba(225, 6, 0, 0.4);
+            padding: 80px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            text-align: center;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .offer h2 {
+            font-size: 3rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-family: var(--font-display);
+            color: var(--accent);
+            margin: 24px 0 40px;
+            display: inline-block;
+            border-bottom: 1px solid rgba(225, 6, 0, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: left;
+            margin-bottom: 48px;
+        }
+        
+        .offer-item {
+            padding: 20px;
+            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .offer-item svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .offer {
+                padding: 40px 24px;
+            }
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .faq-item summary {
+            padding: 24px 0;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+            transition: var(--transition);
+        }
+        
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary:hover {
+            color: var(--accent);
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .faq-item p {
+            padding-bottom: 24px;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Utility & Component Classes */
+        .text-center { text-align: center; }
+        .mx-auto { margin: 0 auto; }
+        .mb-16 { margin-bottom: 16px; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-60 { margin-bottom: 60px; }
+        .max-w-800 { max-width: 800px; }
+        
+        .nav-btn {
+            padding: 10px 24px;
+            font-size: 0.85rem;
+        }
+
+        .application-note {
+            text-align: center;
+            margin: 24px auto 0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-text {
+            margin: 0 auto;
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="wrap">
+            <div class="logo">War<span>Room</span></div>
+            <a class="btn btn-outline nav-btn" href="#apply">Apply Now</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="wrap">
+            <h1 class="reveal">Enter The<br><span class="accent-text">War Room</span></h1>
+            <p class="reveal delay-1">I work with a selective group of committed women to elevate their confidence, presence, and physique through high-level bespoke movement.</p>
+            <div class="reveal delay-2">
+                <a class="btn" href="#apply">Submit Application</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="sponsors reveal">
+        <div class="wrap">
+            <p>The standard demanded by</p>
+            <div class="sponsors-grid">
+                <div class="sponsor-logo">LUCINI LONDON</div>
+                <div class="sponsor-logo">JUSTSTRONG</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap">
+            <div class="split">
+                <div class="reveal">
+                    <h2>Selected. Trained.<br>Now <span class="accent-text">Selecting.</span></h2>
+                    <p>Leanda’s training is born from the relentless discipline of elite dance and structured coaching. The same uncompromising standard now defines The War Room.</p>
+                    <p>This space is not for everyone. It is for women who are ready to commit deeply and transform completely.</p>
+                </div>
+                <div class="quote-box reveal delay-1">
+                    <p class="quote">“I was chosen by a coach who saw something in me. Now, I choose who I train.”</p>
+                    <p class="highlight">— Leanda Talbot</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator"></div>
+
+    <section class="section">
+        <div class="wrap">
+            <h2 class="reveal text-center mb-60">Designed <span class="accent-text">Movement</span></h2>
+            <div class="grid">
+                <div class="card reveal delay-1">
+                    <div class="card-number">01</div>
+                    <h3>Pilates</h3>
+                    <p>Build unshakeable structure, deep core control, and foundational strength. We forge the architecture of your body.</p>
+                </div>
+                <div class="card reveal delay-2">
+                    <div class="card-number">02</div>
+                    <h3>Dance</h3>
+                    <p>Cultivate powerful presence, fluid flow, and a new physical identity. Movement becomes a statement of who you are.</p>
+                </div>
+                <div class="card reveal delay-3">
+                    <div class="card-number">03</div>
+                    <h3>Evolution</h3>
+                    <p>Merge structure with flow. The result is total transformation—you become a completely different woman.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-separator"></div>
+    
+    <section class="section">
+        <div class="wrap">
+            <h2 class="reveal text-center mb-60">The <span class="accent-text">Standard</span></h2>
+            <div class="grid">
+                <div class="card reveal delay-1">
+                    <div class="stars">★★★★★</div>
+                    <p>"Leanda doesn't just change your body; she reconstructs how you carry yourself in the world. The War Room is entirely unmatched."</p>
+                    <div class="testimonial-author">Sarah M.</div>
+                    <div class="testimonial-role">Executive Director</div>
+                </div>
+                <div class="card reveal delay-2">
+                    <div class="stars">★★★★★</div>
+                    <p>"An intensive, elite experience. The level of detail and discipline is staggering. I walked out stronger, leaner, and fiercely confident."</p>
+                    <div class="testimonial-author">Elena V.</div>
+                    <div class="testimonial-role">Founder & CEO</div>
+                </div>
+                <div class="card reveal delay-3">
+                    <div class="stars">★★★★★</div>
+                    <p>"This isn't fitness. It's an overhaul of your physical identity. Leanda demands your best and gives you the tools to exceed it."</p>
+                    <div class="testimonial-author">Jessica T.</div>
+                    <div class="testimonial-role">Creative Director</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="apply">
+        <div class="wrap">
+            <div class="offer-wrapper reveal">
+                <div class="offer-glow"></div>
+                <div class="offer">
+                    <h2>The War Room <span class="accent-text">Experience</span></h2>
+                    <p class="mx-auto">A highly intensive 6–8 week 1:1 physical and mental transformation.</p>
+                    <div class="price">From €1,200</div>
+                    
+                    <div class="offer-grid">
+                        <div class="offer-item">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <p class="highlight">Personalised Pilates Structure</p>
+                        </div>
+                        <div class="offer-item">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <p class="highlight">Custom-Designed Movement</p>
+                        </div>
+                        <div class="offer-item">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <p class="highlight">Confidence & Presence Coaching</p>
+                        </div>
+                        <div class="offer-item">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <p class="highlight">Direct Support & Accountability</p>
+                        </div>
+                    </div>
+                    
+                    <a class="btn" href="#">Apply via WhatsApp</a>
+                    <p class="application-note">Application Only. Limited Capacity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-separator"></div>
+    
+    <section class="section">
+        <div class="wrap max-w-800">
+            <h2 class="reveal text-center mb-40">Intelligence</h2>
+            <div class="reveal delay-1">
+                <details class="faq-item">
+                    <summary>Who is The War Room for?</summary>
+                    <p>The War Room is exclusively for highly committed women who demand the highest standard for their physical and mental presence. It is not for beginners unready to push their limits.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What is the application process?</summary>
+                    <p>Selection is rigorous. You will apply via WhatsApp, where we will discuss your history, current physical state, and goals. Acceptance is based on readiness and alignment with the program's intensity.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Where does the training take place?</summary>
+                    <p>Sessions are conducted 1:1 in a private, high-end environment or via an elite remote coaching setup, depending on your location and lifestyle demands.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What results can I expect?</summary>
+                    <p>A fundamental shift in how you carry yourself. Expect a leaner, stronger, more agile physique combined with an undeniable aura of confidence and presence.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap">
+            <div class="logo mb-16">War<span>Room</span></div>
+            <p class="footer-text">© 2026 Leanda Talbot. All rights reserved. <br>The War Room is an exclusive entity.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+        
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+    </script>
+</body>
+</html>
