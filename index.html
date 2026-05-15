@@ -3,937 +3,692 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Becoming | Crystal Princess by Leanda Talbot</title>
+  <title>Crystal Princess | The Becoming by Leanda Talbot</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #f6f2ef;
-      --bg-soft: #f9e7ec;
-      --text: #333333;
-      --muted: #6f6464;
-      --accent: #cfa5a9;
-      --accent-deep: #a86c75;
-      --gold: #d4af37;
-      --gold-soft: rgba(212, 175, 55, 0.22);
-      --rose-glow: rgba(247, 182, 194, 0.35);
-      --card-bg: rgba(255, 255, 255, 0.55);
-      --border: rgba(168, 108, 117, 0.18);
-      --dark: #2b2728;
+      --ivory: #F6F2EF;
+      --cream: #FBF7F2;
+      --text: #2D2928;
+      --muted: #6E6662;
+      --taupe: #B98F75;
+      --taupe-dark: #8D684F;
+      --gold: #D4AF37;
+      --line: rgba(141,104,79,0.22);
       --font-display: 'Cormorant Garamond', serif;
       --font-body: 'Inter', sans-serif;
-      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition: all .45s cubic-bezier(.16,1,.3,1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior:smooth; }
 
     body {
       font-family: var(--font-body);
-      background:
-        radial-gradient(circle at top left, rgba(247, 182, 194, 0.45), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.22), transparent 35%),
-        var(--bg);
+      background: var(--ivory);
       color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.035"/%3E%3C/svg%3E');
-      pointer-events: none;
-      z-index: 9999;
+    a { text-decoration:none; color:inherit; }
+
+    img { max-width:100%; display:block; }
+
+    .wrap {
+      max-width:1240px;
+      margin:auto;
+      padding:0 32px;
     }
 
-    .wrap { max-width: 1180px; margin: auto; padding: 0 24px; }
-
-    h1, h2, h3 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      line-height: 1.05;
+    h1,h2,h3 {
+      font-family:var(--font-display);
+      font-weight:600;
+      line-height:1;
+      letter-spacing:-0.03em;
     }
 
     h1 {
-      font-size: clamp(3.6rem, 8.5vw, 8rem);
-      letter-spacing: -0.035em;
-      text-transform: uppercase;
+      font-size:clamp(4rem,8vw,7.8rem);
     }
 
     h2 {
-      font-size: clamp(2.4rem, 5vw, 4.4rem);
-      margin-bottom: 24px;
-      letter-spacing: -0.02em;
+      font-size:clamp(2.8rem,5vw,5rem);
     }
 
-    h3 { font-size: 1.7rem; }
+    h3 {
+      font-size:1.55rem;
+    }
 
     p {
-      color: var(--muted);
-      font-size: 1.08rem;
-      font-weight: 300;
-      max-width: 650px;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.9;
+      font-weight:300;
     }
 
-    a { text-decoration: none; }
+    .script {
+      font-family:var(--font-display);
+      font-style:italic;
+      color:var(--taupe-dark);
+      font-weight:500;
+    }
 
-    .highlight { color: var(--text); font-weight: 500; }
-    .accent-text { color: var(--accent-deep); font-style: italic; }
-    .gold-text { color: var(--gold); }
+    .kicker {
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      color:var(--taupe);
+      font-size:.78rem;
+      font-weight:600;
+      margin-bottom:22px;
+    }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px 42px;
-      background: linear-gradient(135deg, var(--accent-deep), #d9a8b0);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 999px;
-      transition: var(--transition);
-      border: 1px solid rgba(255,255,255,0.45);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 18px 45px rgba(168, 108, 117, 0.24);
-      cursor: pointer;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--gold), #f2d98b);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: var(--transition);
-      z-index: -1;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px 38px;
+      background:linear-gradient(135deg,#C99B78,#B28466);
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.8rem;
+      font-weight:700;
+      transition:var(--transition);
+      border:1px solid rgba(255,255,255,.3);
     }
 
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 22px 55px rgba(212, 175, 55, 0.28);
+      transform:translateY(-3px);
+      box-shadow:0 22px 55px rgba(141,104,79,.22);
     }
-
-    .btn:hover::before { transform: scaleX(1); }
 
     .btn-outline {
-      background: rgba(255,255,255,0.35);
-      border: 1px solid var(--border);
-      color: var(--text);
-      box-shadow: none;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--gold);
-      color: var(--text);
-    }
-
-    .section { padding: 120px 0; position: relative; }
-
-    .section-separator {
-      height: 1px;
-      width: 100%;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .split { grid-template-columns: 1fr; gap: 42px; }
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--line);
     }
 
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 22px 0;
-      z-index: 100;
-      transition: var(--transition);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      background: rgba(246, 242, 239, 0.82);
-      border-bottom: 1px solid var(--border);
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:100;
+      background:rgba(246,242,239,.88);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
     }
 
     nav .wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
     }
 
     .logo {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family:var(--font-display);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:1.8rem;
+      line-height:.82;
     }
 
-    .logo span {
-      color: var(--accent-deep);
-      font-style: italic;
-      text-transform: none;
-      letter-spacing: 0;
+    .logo small {
+      display:block;
+      font-size:.68rem;
+      letter-spacing:.55em;
+      margin-top:8px;
+      padding-left:4px;
     }
 
-    .nav-btn { padding: 10px 24px; font-size: 0.8rem; }
+    .nav-links {
+      display:flex;
+      gap:42px;
+      align-items:center;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-weight:600;
+    }
 
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding-top: 110px;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      top: 48%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 88vw;
-      height: 88vw;
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+      align-items:center;
+      padding-top:86px;
       background:
-        radial-gradient(circle, rgba(247, 182, 194, 0.42) 0%, transparent 48%),
-        radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 64%);
-      opacity: 0.9;
-      z-index: -1;
-      filter: blur(70px);
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.9), transparent 35%),
+        linear-gradient(90deg,#FBF7F2 0%,#F5EFE8 45%,#E8D2BE 100%);
     }
 
-    .hero h1 {
-      margin-bottom: 26px;
-      text-shadow: 0 20px 55px rgba(168,108,117,0.16);
+    .hero-copy {
+      padding-left:max(32px, calc((100vw - 1240px) / 2 + 32px));
+      padding-right:40px;
     }
 
-    .hero .kicker {
-      margin: 0 auto 18px;
-      color: var(--accent-deep);
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      font-size: 0.8rem;
-      font-weight: 700;
+    .hero-copy p {
+      max-width:520px;
+      margin:34px 0 38px;
+      color:#5F5753;
     }
 
-    .hero p {
-      margin: 0 auto 42px;
-      font-size: 1.22rem;
+    .hero-note {
+      margin-top:28px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.75rem;
+      color:var(--taupe);
+      font-weight:600;
     }
 
-    .script-line {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(2rem, 5vw, 4rem);
-      color: var(--accent-deep);
-      text-transform: none;
-      letter-spacing: -0.01em;
-      display: block;
-      margin-top: 6px;
+    .hero-image {
+      height:calc(100vh - 86px);
+      min-height:640px;
+      width:100%;
+      object-fit:cover;
+      object-position:center;
     }
 
     .brand-strip {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.28);
-      text-align: center;
+      padding:28px 0 34px;
+      background:#FBF8F4;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      text-align:center;
     }
 
-    .brand-strip p {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      margin: 0 auto 20px;
-      color: var(--muted);
-      font-weight: 600;
+    .brand-strip-title {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      justify-content:center;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      color:var(--taupe-dark);
+      font-size:.75rem;
+      margin-bottom:26px;
     }
 
-    .values-row {
-      display: flex;
-      justify-content: center;
-      gap: 34px;
-      flex-wrap: wrap;
-      color: var(--text);
-      opacity: 0.85;
+    .brand-strip-title:before,
+    .brand-strip-title:after {
+      content:"";
+      width:280px;
+      max-width:25vw;
+      height:1px;
+      background:var(--line);
     }
 
-    .value-item {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      letter-spacing: 0.04em;
+    .brand-logos {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px;
+      opacity:.58;
+      font-family:var(--font-display);
+      text-transform:uppercase;
+      letter-spacing:.35em;
+      font-size:1.65rem;
+    }
+
+    .brand-logos small {
+      display:block;
+      font-family:var(--font-body);
+      font-size:.65rem;
+      letter-spacing:.35em;
+      margin-top:6px;
+    }
+
+    .section {
+      padding:110px 0;
+    }
+
+    .founder {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:70px;
+    }
+
+    .founder-image {
+      height:560px;
+      width:100%;
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .founder-copy {
+      max-width:560px;
+    }
+
+    .founder-copy p {
+      margin-bottom:24px;
+    }
+
+    .founder-copy .btn-outline {
+      margin-top:16px;
+    }
+
+    .experience {
+      background:linear-gradient(180deg,#FBF8F4,#F6F2EF);
+      text-align:center;
+      border-top:1px solid var(--line);
+    }
+
+    .experience h2 {
+      margin-bottom:6px;
+    }
+
+    .experience-sub {
+      font-size:2.4rem;
+      margin-bottom:46px;
+    }
+
+    .cards {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:28px;
+      margin-bottom:38px;
     }
 
     .card {
-      padding: 40px;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      border-radius: 24px;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(80, 45, 52, 0.06);
-    }
-
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
-      opacity: 0;
-      transition: var(--transition);
-      pointer-events: none;
+      border:1px solid var(--line);
+      padding:42px 32px;
+      background:rgba(255,255,255,.42);
+      min-height:255px;
+      transition:var(--transition);
     }
 
     .card:hover {
-      border-color: rgba(212, 175, 55, 0.55);
-      transform: translateY(-8px);
-      box-shadow: 0 28px 70px rgba(168, 108, 117, 0.14);
+      transform:translateY(-7px);
+      box-shadow:0 30px 70px rgba(141,104,79,.12);
     }
 
-    .card:hover::after { opacity: 1; }
-
-    .card-number {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      color: rgba(168, 108, 117, 0.12);
-      position: absolute;
-      top: 18px;
-      right: 24px;
-      line-height: 1;
-      transition: var(--transition);
+    .icon {
+      font-size:2.2rem;
+      color:var(--taupe);
+      margin-bottom:24px;
+      font-family:var(--font-display);
     }
 
-    .card:hover .card-number { color: rgba(212, 175, 55, 0.28); }
-    .card h3 { margin-bottom: 16px; }
-    .card p { margin-bottom: 0; }
-
-    .quote-box {
-      position: relative;
-      padding: 48px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.72), rgba(249,231,236,0.58));
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 70px rgba(168, 108, 117, 0.12);
+    .card h3 {
+      text-transform:uppercase;
+      font-family:var(--font-body);
+      font-size:.9rem;
+      letter-spacing:.16em;
+      margin-bottom:16px;
+      font-weight:700;
     }
 
-    .quote-box::before {
-      content: '“';
-      font-family: var(--font-display);
-      font-size: 7rem;
-      color: var(--gold);
-      position: absolute;
-      top: -26px;
-      left: 18px;
-      opacity: 0.28;
-      line-height: 1;
+    .story {
+      background:#2E2927;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
     }
 
-    .quote {
-      font-size: clamp(1.75rem, 3vw, 2.55rem);
-      font-family: var(--font-display);
-      line-height: 1.25;
-      color: var(--text);
-      margin-bottom: 24px;
-      max-width: 100%;
-    }
-
-    .story-panel {
-      background: linear-gradient(135deg, #332d2f, #171415);
-      color: #fff;
-      border-radius: 34px;
-      padding: 70px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 40px 100px rgba(45, 31, 35, 0.26);
-    }
-
-    .story-panel::before {
-      content: '';
-      position: absolute;
-      inset: -20%;
+    .story:before {
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(circle at top left, rgba(247,182,194,0.28), transparent 38%),
-        radial-gradient(circle at bottom right, rgba(212,175,55,0.18), transparent 34%);
-      pointer-events: none;
+        radial-gradient(circle at 15% 20%, rgba(201,155,120,.3), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(212,175,55,.18), transparent 35%);
+      pointer-events:none;
     }
 
-    .story-panel > * { position: relative; z-index: 1; }
-    .story-panel h2, .story-panel .highlight { color: #fff; }
-    .story-panel p { color: rgba(255,255,255,0.72); }
-
-    .story-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      margin-top: 50px;
+    .story .wrap {
+      position:relative;
+      z-index:1;
+      text-align:center;
     }
 
-    .story-step {
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.045);
-      padding: 28px;
-      border-radius: 22px;
+    .story h2,
+    .story p {
+      color:#fff;
     }
 
-    .story-step strong {
-      color: #fff;
-      display: block;
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      margin-bottom: 10px;
+    .story p {
+      opacity:.72;
+      max-width:760px;
+      margin:0 auto 48px;
     }
 
-    .story-step span {
-      color: rgba(255,255,255,0.66);
-      font-size: 0.95rem;
+    .story-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:26px;
+      text-align:left;
     }
 
-    .stars {
-      color: var(--gold);
-      margin-bottom: 16px;
-      letter-spacing: 3px;
+    .story-card {
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.045);
+      padding:32px;
     }
 
-    .testimonial-author {
-      margin-top: 24px;
-      font-weight: 700;
-      color: var(--text);
-      text-transform: uppercase;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
+    .story-card strong {
+      display:block;
+      font-family:var(--font-display);
+      font-size:1.7rem;
+      margin-bottom:12px;
     }
 
-    .testimonial-role { font-size: 0.78rem; color: var(--muted); }
-
-    .offer-wrapper { position: relative; }
-
-    .offer-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, var(--rose-glow) 0%, transparent 70%);
-      filter: blur(90px);
-      z-index: -1;
-      opacity: 0.8;
+    .story-card span {
+      color:rgba(255,255,255,.7);
+      line-height:1.8;
+      font-size:.95rem;
     }
 
     .offer {
-      border: 1px solid rgba(212, 175, 55, 0.34);
-      padding: 78px;
-      background: rgba(255,255,255,0.62);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      text-align: center;
-      border-radius: 34px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 30px 90px rgba(168,108,117,0.16);
+      text-align:center;
     }
 
-    .offer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 12%;
-      width: 76%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    .offer-box {
+      max-width:980px;
+      margin:auto;
+      padding:70px;
+      background:rgba(255,255,255,.48);
+      border:1px solid var(--line);
+      box-shadow:0 30px 90px rgba(141,104,79,.12);
     }
 
-    .offer h2 { font-size: clamp(2.8rem, 5vw, 4.6rem); }
-
-    .price {
-      font-size: 1.35rem;
-      font-family: var(--font-display);
-      color: var(--accent-deep);
-      margin: 24px 0 40px;
-      display: inline-block;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.45);
-      padding-bottom: 8px;
-    }
-
-    .offer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-      text-align: left;
-      margin-bottom: 46px;
-    }
-
-    .offer-item {
-      padding: 20px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.48);
-      border-radius: 18px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .offer-item svg {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      fill: var(--gold);
-      margin-top: 3px;
+    .offer-box p {
+      max-width:720px;
+      margin:0 auto 36px;
     }
 
     form {
-      max-width: 680px;
-      margin: 42px auto 0;
-      display: grid;
-      gap: 16px;
+      max-width:660px;
+      margin:42px auto 0;
+      display:grid;
+      gap:16px;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 18px 20px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.78);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      outline: none;
-      transition: var(--transition);
+    input,textarea {
+      width:100%;
+      padding:18px 20px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      font-family:var(--font-body);
+      font-size:1rem;
+      outline:none;
     }
 
-    textarea { min-height: 130px; resize: vertical; }
-
-    input:focus, textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 4px rgba(212,175,55,0.12);
-    }
-
-    .application-note {
-      text-align: center;
-      margin: 22px auto 0;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
-    }
-
-    .faq-item summary {
-      padding: 24px 0;
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text);
-      transition: var(--transition);
-    }
-
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary:hover { color: var(--accent-deep); }
-
-    .faq-item summary::after {
-      content: '+';
-      font-size: 1.6rem;
-      font-weight: 300;
-      transition: var(--transition);
-      color: var(--gold);
-    }
-
-    .faq-item[open] summary::after { transform: rotate(45deg); }
-
-    .faq-item p {
-      padding-bottom: 24px;
-      margin: 0;
-      max-width: 100%;
+    textarea {
+      min-height:130px;
+      resize:vertical;
     }
 
     footer {
-      padding: 64px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
+      padding:48px 0;
+      text-align:center;
+      border-top:1px solid var(--line);
+      background:#FBF8F4;
     }
 
-    .footer-text { margin: 0 auto; font-size: 0.86rem; }
-
-    .text-center { text-align: center; }
-    .mx-auto { margin: 0 auto; }
-    .mb-16 { margin-bottom: 16px; }
-    .mb-40 { margin-bottom: 40px; }
-    .mb-60 { margin-bottom: 60px; }
-    .max-w-800 { max-width: 800px; }
+    footer p {
+      font-size:.82rem;
+      margin-top:12px;
+    }
 
     .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity:0;
+      transform:translateY(38px);
+      transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1);
     }
 
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
+    .reveal.active {
+      opacity:1;
+      transform:translateY(0);
+    }
 
-    @media (max-width: 768px) {
-      nav { padding: 18px 0; }
-      .logo { font-size: 1.1rem; }
-      .nav-btn { padding: 9px 16px; font-size: 0.72rem; }
-      .section { padding: 86px 0; }
-      .hero { min-height: 92vh; }
-      .story-panel { padding: 42px 24px; border-radius: 26px; }
-      .offer { padding: 44px 22px; border-radius: 26px; }
-      .card { padding: 32px 26px; }
-      .quote-box { padding: 38px 28px; }
+    .delay-1 { transition-delay:.1s; }
+    .delay-2 { transition-delay:.2s; }
+
+    @media (max-width:900px) {
+      nav .wrap {
+        height:76px;
+      }
+
+      .nav-links {
+        display:none;
+      }
+
+      .logo {
+        font-size:1.35rem;
+      }
+
+      .hero {
+        grid-template-columns:1fr;
+        padding-top:76px;
+      }
+
+      .hero-copy {
+        padding:80px 28px 48px;
+        text-align:center;
+      }
+
+      .hero-copy p {
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-image {
+        height:auto;
+        min-height:0;
+      }
+
+      .brand-logos,
+      .cards,
+      .story-grid,
+      .founder {
+        grid-template-columns:1fr;
+      }
+
+      .founder-image {
+        height:auto;
+      }
+
+      .section {
+        padding:82px 0;
+      }
+
+      .offer-box {
+        padding:44px 24px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <nav>
-    <div class="wrap">
-      <div class="logo">Crystal <span>Princess</span></div>
-      <a class="btn btn-outline nav-btn" href="#apply">Begin</a>
-    </div>
-  </nav>
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">Crystal<small>Princess</small></a>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="wrap">
-      <p class="kicker reveal">Premium Feminine Transformation</p>
-      <h1 class="reveal">
-        The Becoming
-        <span class="script-line">You can become her again.</span>
-      </h1>
-      <p class="reveal delay-1">
-        Pilates, dance-inspired movement, yoga, clean eating, and feminine wellness for women ready to reclaim their body, confidence, health, and identity.
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#experience">The Experience</a>
+      <a href="#about">About Leanda</a>
+      <a href="#story">Results</a>
+      <a href="#apply">Apply</a>
+    </div>
+
+    <a class="btn btn-outline" href="#apply">Apply Now</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-copy reveal">
+    <h1>
+      Your transformation begins with
+      <span class="script">choosing you.</span>
+    </h1>
+
+    <p>
+      A premium movement, wellness and feminine transformation experience for women ready to become their strongest, most confident and healthiest self.
+    </p>
+
+    <a class="btn" href="#apply">Apply For Your Transformation</a>
+
+    <div class="hero-note">Spaces are limited. Commitment is everything.</div>
+  </div>
+
+  <img class="hero-image reveal delay-1" src="leanda-hero.jpg" alt="Leanda Talbot">
+</header>
+
+<section class="brand-strip">
+  <div class="wrap">
+    <div class="brand-strip-title">The Standard Demanded By</div>
+
+    <div class="brand-logos">
+      <div>Lucini<small>London</small></div>
+      <div>Juststrong</div>
+      <div>Move<small>With Intention</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap founder">
+    <img class="founder-image reveal" src="leanda-founder.jpg" alt="Leanda Talbot founder portrait">
+
+    <div class="founder-copy reveal delay-1">
+      <div class="kicker">Founder</div>
+
+      <h2>
+        Luxury authority.<br>
+        <span class="script">Real experience.</span>
+      </h2>
+
+      <p>
+        Leanda Talbot is a qualified Pilates instructor, former dance champion, professional dancer with international contracts, published swimwear model and current Miss Swimsuit UK.
       </p>
-      <div class="reveal delay-2">
-        <a class="btn" href="#apply">Begin The Becoming</a>
-      </div>
-    </div>
-  </section>
 
-  <section class="brand-strip reveal">
-    <div class="wrap">
-      <p>Crystal Princess — Beauty With Purpose</p>
-      <div class="values-row">
-        <div class="value-item">Wellness</div>
-        <div class="value-item">Femininity</div>
-        <div class="value-item">Confidence</div>
-        <div class="value-item">Discipline</div>
-        <div class="value-item">Purpose</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="split">
-        <div class="reveal">
-          <h2>High standards.<br><span class="accent-text">Feminine support.</span></h2>
-          <p>
-            The Becoming is for mothers and women who feel disconnected from their body, confidence, femininity, or wellness — but know they are ready to commit to themselves again.
-          </p>
-          <p>
-            This is not a harsh bootcamp. It is a premium, elegant, results-driven transformation built around graceful movement, clean habits, confidence, and sustainable feminine strength.
-          </p>
-        </div>
-
-        <div class="quote-box reveal delay-1">
-          <p class="quote">
-            I didn’t lose my crown… I discovered what it truly means to wear it.
-          </p>
-          <p class="highlight">— Leanda Talbot</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-separator"></div>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="story-panel reveal">
-        <h2 class="text-center">The Three Seasons</h2>
-        <p class="mx-auto text-center">
-          Same woman. Different seasons. A journey from beauty, to struggle, to strength, wellness, and confidence restored.
-        </p>
-
-        <div class="story-steps">
-          <div class="story-step">
-            <strong>01 — The Princess</strong>
-            <span>Seen. Admired. Beautiful. The woman the world noticed, but not always the woman behind the image.</span>
-          </div>
-
-          <div class="story-step">
-            <strong>02 — The Invisible</strong>
-            <span>Weight struggles, low confidence, fatigue, emotional pressure, motherhood, illness, isolation, or feeling unlike yourself.</span>
-          </div>
-
-          <div class="story-step">
-            <strong>03 — The Return</strong>
-            <span>Leaner. Healthier. Stronger. Softer. More confident. She doesn’t chase the crown. She becomes it.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-separator"></div>
-
-  <section class="section">
-    <div class="wrap">
-      <h2 class="reveal text-center mb-60">The <span class="accent-text">Method</span></h2>
-
-      <div class="grid">
-        <div class="card reveal delay-1">
-          <div class="card-number">01</div>
-          <h3>Sculpted Movement</h3>
-          <p>
-            Pilates, yoga, dance-inspired flow, and feminine-focused training to help you become leaner, more toned, more mobile, and more connected to your body.
-          </p>
-        </div>
-
-        <div class="card reveal delay-2">
-          <div class="card-number">02</div>
-          <h3>Clean Wellness</h3>
-          <p>
-            Simple, sustainable guidance around clean eating, daily rhythm, consistency, energy, and healthier choices that support real transformation.
-          </p>
-        </div>
-
-        <div class="card reveal delay-3">
-          <div class="card-number">03</div>
-          <h3>Feminine Confidence</h3>
-          <p>
-            A rebuilding of presence — how you carry yourself, how you feel in your skin, and how you begin to see yourself again.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-separator"></div>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="split">
-        <div class="quote-box reveal">
-          <p class="quote">
-            You are not failing. You are being invited back to yourself.
-          </p>
-          <p class="highlight">A healthier, stronger, more confident version of you is still there.</p>
-        </div>
-
-        <div class="reveal delay-1">
-          <h2>Luxury authority.<br><span class="accent-text">Real experience.</span></h2>
-          <p>
-            Leanda brings together elite movement, performance, modelling, discipline, femininity, and lived transformation.
-          </p>
-          <p class="highlight">
-            Qualified Pilates Instructor • Former Dance Champion • Professional Dancer • International Contracts • Published Swimwear Model • Current Miss Swimsuit UK
-          </p>
-          <p>
-            The result is a premium feminine transformation experience: elegant, supportive, disciplined, and deeply personal.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-separator"></div>
-
-  <section class="section">
-    <div class="wrap">
-      <h2 class="reveal text-center mb-60">Women are not looking for more pressure.<br><span class="accent-text">They are looking for a way back.</span></h2>
-
-      <div class="grid">
-        <div class="card reveal delay-1">
-          <div class="stars">★★★★★</div>
-          <p>
-            “I didn’t just feel stronger. I felt softer, clearer, more confident, and more like myself again.”
-          </p>
-          <div class="testimonial-author">Client Story</div>
-          <div class="testimonial-role">Confidence & Identity</div>
-        </div>
-
-        <div class="card reveal delay-2">
-          <div class="stars">★★★★★</div>
-          <p>
-            “Leanda helped me reconnect with my body in a way that felt safe, feminine, disciplined, and powerful.”
-          </p>
-          <div class="testimonial-author">Client Story</div>
-          <div class="testimonial-role">Movement & Presence</div>
-        </div>
-
-        <div class="card reveal delay-3">
-          <div class="stars">★★★★★</div>
-          <p>
-            “This felt different. It wasn’t about becoming someone else. It was about becoming her again.”
-          </p>
-          <div class="testimonial-author">Client Story</div>
-          <div class="testimonial-role">Wellness & Purpose</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="apply">
-    <div class="wrap">
-      <div class="offer-wrapper reveal">
-        <div class="offer-glow"></div>
-
-        <div class="offer">
-          <h2>The Becoming <span class="accent-text">Experience</span></h2>
-          <p class="mx-auto">
-            A premium feminine transformation journey with Leanda Talbot — created for women ready to become leaner, healthier, more toned, more confident, and more connected to themselves again.
-          </p>
-
-          <div class="price">High Standards • Feminine Support • Limited Capacity</div>
-
-          <div class="offer-grid">
-            <div class="offer-item">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Pilates & Feminine Movement</p>
-            </div>
-
-            <div class="offer-item">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Dance-Inspired Sculpting</p>
-            </div>
-
-            <div class="offer-item">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Clean Eating & Wellness Rhythm</p>
-            </div>
-
-            <div class="offer-item">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Confidence & Accountability</p>
-            </div>
-          </div>
-
-          <form name="becoming-application" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="becoming-application" />
-            <input type="text" name="name" placeholder="Your Name..." required />
-            <input type="email" name="email" placeholder="Your Email..." required />
-            <textarea name="message" placeholder="Tell Leanda briefly what season you are in right now..."></textarea>
-            <button class="btn" type="submit">Begin The Becoming</button>
-          </form>
-
-          <p class="application-note">This is not just my story. This is our movement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-separator"></div>
-
-  <section class="section">
-    <div class="wrap max-w-800">
-      <h2 class="reveal text-center mb-40">Questions</h2>
-
-      <div class="reveal delay-1">
-        <details class="faq-item">
-          <summary>Who is The Becoming for?</summary>
-          <p>
-            It is for mothers and women who are ready to commit to their body, confidence, femininity, wellness, and self-worth again.
-          </p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Is this a hardcore fitness programme?</summary>
-          <p>
-            No. The standard is high, but the approach is feminine, elegant, supportive, and sustainable. This is transformation without shame.
-          </p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What does the method include?</summary>
-          <p>
-            Pilates, dance-inspired movement, yoga, feminine-focused training, clean eating guidance, wellness rhythm, confidence, and accountability.
-          </p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Do I need experience?</summary>
-          <p>
-            No. The journey can be shaped around your current season, your body, your confidence level, and your goals.
-          </p>
-        </details>
-
-        <details class="faq-item">
-          <summary>How do I begin?</summary>
-          <p>
-            Submit the short form and Leanda will review your message. If it feels aligned, she will contact you directly.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap">
-      <div class="logo mb-16">Crystal <span>Princess</span></div>
-      <p class="footer-text">
-        © 2026 Leanda Talbot. Crystal Princess — Beauty With Purpose.<br>
-        You can become her again.
+      <p>
+        Her unique blend of movement, discipline and feminine intelligence creates transformations that are powerful, elegant and lasting.
       </p>
+
+      <a class="btn btn-outline" href="#apply">Learn More About Leanda</a>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    const reveals = document.querySelectorAll('.reveal');
+<section class="section experience" id="experience">
+  <div class="wrap">
+    <div class="kicker reveal">The Experience</div>
 
-    const revealOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
-    };
+    <h2 class="reveal">Movement. Wellness. Femininity.</h2>
+    <div class="script experience-sub reveal delay-1">All working in harmony.</div>
 
-    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
-      });
-    }, revealOptions);
+    <div class="cards">
+      <div class="card reveal">
+        <div class="icon">◌</div>
+        <h3>Pilates</h3>
+        <p>Build strength from within, improve posture and create a strong, sculpted foundation.</p>
+      </div>
 
-    reveals.forEach(reveal => {
-      revealOnScroll.observe(reveal);
+      <div class="card reveal delay-1">
+        <div class="icon">✧</div>
+        <h3>Dance-Inspired Movement</h3>
+        <p>Enhance grace, confidence and feminine energy through fluid, expressive movement.</p>
+      </div>
+
+      <div class="card reveal delay-2">
+        <div class="icon">♡</div>
+        <h3>Wellness & Nutrition</h3>
+        <p>Nourish your body, balance your mind and create sustainable habits for lifelong results.</p>
+      </div>
+    </div>
+
+    <a class="btn" href="#apply">Apply For Your Transformation</a>
+  </div>
+</section>
+
+<section class="section story" id="story">
+  <div class="wrap">
+    <h2 class="reveal">The Becoming</h2>
+
+    <p class="reveal delay-1">
+      Same woman. Different seasons. A journey from beauty, to struggle, to strength, confidence and wellness restored.
+    </p>
+
+    <div class="story-grid">
+      <div class="story-card reveal">
+        <strong>01 — The Princess</strong>
+        <span>Seen. Admired. Beautiful. The woman the world noticed, but not always the woman behind the image.</span>
+      </div>
+
+      <div class="story-card reveal delay-1">
+        <strong>02 — The Invisible</strong>
+        <span>Weight struggles, low confidence, fatigue, motherhood, illness, emotional pressure, or simply feeling unlike yourself.</span>
+      </div>
+
+      <div class="story-card reveal delay-2">
+        <strong>03 — The Return</strong>
+        <span>Leaner. Healthier. Stronger. Softer. More confident. She doesn’t chase the crown. She becomes it.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section offer" id="apply">
+  <div class="wrap">
+    <div class="offer-box reveal">
+      <div class="kicker">Apply</div>
+
+      <h2>
+        Begin The
+        <span class="script">Becoming.</span>
+      </h2>
+
+      <p>
+        A premium feminine transformation journey for women ready to reclaim their body, confidence, wellness and identity through elegant movement and disciplined feminine support.
+      </p>
+
+      <form name="becoming-application" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="becoming-application" />
+
+        <input type="text" name="name" placeholder="Your Name..." required>
+        <input type="email" name="email" placeholder="Your Email..." required>
+        <textarea name="message" placeholder="Tell Leanda briefly what season you are in right now..."></textarea>
+
+        <button class="btn" type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Crystal<small>Princess</small></div>
+  <p>© 2026 Leanda Talbot — Beauty With Purpose<br>You can become her again.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+
+  const revealOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
     });
-  </script>
+  }, revealOptions);
+
+  reveals.forEach(reveal => {
+    revealOnScroll.observe(reveal);
+  });
+</script>
 
 </body>
 </html>
