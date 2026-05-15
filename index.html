@@ -26,15 +26,8 @@
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font-body);
@@ -46,7 +39,6 @@
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     body::before {
@@ -58,11 +50,7 @@
       z-index: 9999;
     }
 
-    .wrap {
-      max-width: 1180px;
-      margin: auto;
-      padding: 0 24px;
-    }
+    .wrap { max-width: 1180px; margin: auto; padding: 0 24px; }
 
     h1, h2, h3 {
       font-family: var(--font-display);
@@ -82,9 +70,7 @@
       letter-spacing: -0.02em;
     }
 
-    h3 {
-      font-size: 1.7rem;
-    }
+    h3 { font-size: 1.7rem; }
 
     p {
       color: var(--muted);
@@ -93,23 +79,11 @@
       max-width: 650px;
     }
 
-    a {
-      text-decoration: none;
-    }
+    a { text-decoration: none; }
 
-    .highlight {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .accent-text {
-      color: var(--accent-deep);
-      font-style: italic;
-    }
-
-    .gold-text {
-      color: var(--gold);
-    }
+    .highlight { color: var(--text); font-weight: 500; }
+    .accent-text { color: var(--accent-deep); font-style: italic; }
+    .gold-text { color: var(--gold); }
 
     .btn {
       display: inline-flex;
@@ -129,6 +103,7 @@
       overflow: hidden;
       z-index: 1;
       box-shadow: 0 18px 45px rgba(168, 108, 117, 0.24);
+      cursor: pointer;
     }
 
     .btn::before {
@@ -147,9 +122,7 @@
       box-shadow: 0 22px 55px rgba(212, 175, 55, 0.28);
     }
 
-    .btn:hover::before {
-      transform: scaleX(1);
-    }
+    .btn:hover::before { transform: scaleX(1); }
 
     .btn-outline {
       background: rgba(255,255,255,0.35);
@@ -163,10 +136,7 @@
       color: var(--text);
     }
 
-    .section {
-      padding: 120px 0;
-      position: relative;
-    }
+    .section { padding: 120px 0; position: relative; }
 
     .section-separator {
       height: 1px;
@@ -188,10 +158,7 @@
     }
 
     @media (max-width: 900px) {
-      .split {
-        grid-template-columns: 1fr;
-        gap: 42px;
-      }
+      .split { grid-template-columns: 1fr; gap: 42px; }
     }
 
     nav {
@@ -229,10 +196,7 @@
       letter-spacing: 0;
     }
 
-    .nav-btn {
-      padding: 10px 24px;
-      font-size: 0.8rem;
-    }
+    .nav-btn { padding: 10px 24px; font-size: 0.8rem; }
 
     .hero {
       min-height: 100vh;
@@ -349,9 +313,7 @@
       box-shadow: 0 28px 70px rgba(168, 108, 117, 0.14);
     }
 
-    .card:hover::after {
-      opacity: 1;
-    }
+    .card:hover::after { opacity: 1; }
 
     .card-number {
       font-family: var(--font-display);
@@ -364,17 +326,9 @@
       transition: var(--transition);
     }
 
-    .card:hover .card-number {
-      color: rgba(212, 175, 55, 0.28);
-    }
-
-    .card h3 {
-      margin-bottom: 16px;
-    }
-
-    .card p {
-      margin-bottom: 0;
-    }
+    .card:hover .card-number { color: rgba(212, 175, 55, 0.28); }
+    .card h3 { margin-bottom: 16px; }
+    .card p { margin-bottom: 0; }
 
     .quote-box {
       position: relative;
@@ -426,19 +380,9 @@
       pointer-events: none;
     }
 
-    .story-panel > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .story-panel h2,
-    .story-panel .highlight {
-      color: #fff;
-    }
-
-    .story-panel p {
-      color: rgba(255,255,255,0.72);
-    }
+    .story-panel > * { position: relative; z-index: 1; }
+    .story-panel h2, .story-panel .highlight { color: #fff; }
+    .story-panel p { color: rgba(255,255,255,0.72); }
 
     .story-steps {
       display: grid;
@@ -482,14 +426,9 @@
       letter-spacing: 0.12em;
     }
 
-    .testimonial-role {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
+    .testimonial-role { font-size: 0.78rem; color: var(--muted); }
 
-    .offer-wrapper {
-      position: relative;
-    }
+    .offer-wrapper { position: relative; }
 
     .offer-glow {
       position: absolute;
@@ -527,9 +466,7 @@
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
 
-    .offer h2 {
-      font-size: clamp(2.8rem, 5vw, 4.6rem);
-    }
+    .offer h2 { font-size: clamp(2.8rem, 5vw, 4.6rem); }
 
     .price {
       font-size: 1.35rem;
@@ -574,8 +511,7 @@
       gap: 16px;
     }
 
-    input,
-    textarea {
+    input, textarea {
       width: 100%;
       padding: 18px 20px;
       border-radius: 18px;
@@ -588,13 +524,9 @@
       transition: var(--transition);
     }
 
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
+    textarea { min-height: 130px; resize: vertical; }
 
-    input:focus,
-    textarea:focus {
+    input:focus, textarea:focus {
       border-color: var(--gold);
       box-shadow: 0 0 0 4px rgba(212,175,55,0.12);
     }
@@ -628,13 +560,8 @@
       transition: var(--transition);
     }
 
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-item summary:hover {
-      color: var(--accent-deep);
-    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:hover { color: var(--accent-deep); }
 
     .faq-item summary::after {
       content: '+';
@@ -644,9 +571,7 @@
       color: var(--gold);
     }
 
-    .faq-item[open] summary::after {
-      transform: rotate(45deg);
-    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
 
     .faq-item p {
       padding-bottom: 24px;
@@ -660,10 +585,7 @@
       border-top: 1px solid var(--border);
     }
 
-    .footer-text {
-      margin: 0 auto;
-      font-size: 0.86rem;
-    }
+    .footer-text { margin: 0 auto; font-size: 0.86rem; }
 
     .text-center { text-align: center; }
     .mx-auto { margin: 0 auto; }
@@ -678,54 +600,21 @@
       transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .reveal.active { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
 
     @media (max-width: 768px) {
-      nav {
-        padding: 18px 0;
-      }
-
-      .logo {
-        font-size: 1.1rem;
-      }
-
-      .nav-btn {
-        padding: 9px 16px;
-        font-size: 0.72rem;
-      }
-
-      .section {
-        padding: 86px 0;
-      }
-
-      .hero {
-        min-height: 92vh;
-      }
-
-      .story-panel {
-        padding: 42px 24px;
-        border-radius: 26px;
-      }
-
-      .offer {
-        padding: 44px 22px;
-        border-radius: 26px;
-      }
-
-      .card {
-        padding: 32px 26px;
-      }
-
-      .quote-box {
-        padding: 38px 28px;
-      }
+      nav { padding: 18px 0; }
+      .logo { font-size: 1.1rem; }
+      .nav-btn { padding: 9px 16px; font-size: 0.72rem; }
+      .section { padding: 86px 0; }
+      .hero { min-height: 92vh; }
+      .story-panel { padding: 42px 24px; border-radius: 26px; }
+      .offer { padding: 44px 22px; border-radius: 26px; }
+      .card { padding: 32px 26px; }
+      .quote-box { padding: 38px 28px; }
     }
   </style>
 </head>
@@ -742,13 +631,13 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="wrap">
-      <p class="kicker reveal">Beauty With Purpose</p>
+      <p class="kicker reveal">Premium Feminine Transformation</p>
       <h1 class="reveal">
         The Becoming
-        <span class="script-line">Same Woman. Different Seasons.</span>
+        <span class="script-line">You can become her again.</span>
       </h1>
       <p class="reveal delay-1">
-        A feminine movement for women ready to rebuild confidence, presence, posture, and identity from the inside out.
+        Pilates, dance-inspired movement, yoga, clean eating, and feminine wellness for women ready to reclaim their body, confidence, health, and identity.
       </p>
       <div class="reveal delay-2">
         <a class="btn" href="#apply">Begin The Becoming</a>
@@ -758,12 +647,12 @@
 
   <section class="brand-strip reveal">
     <div class="wrap">
-      <p>The Crystal Princess Movement</p>
+      <p>Crystal Princess — Beauty With Purpose</p>
       <div class="values-row">
-        <div class="value-item">Empowerment</div>
-        <div class="value-item">Inclusivity</div>
+        <div class="value-item">Wellness</div>
+        <div class="value-item">Femininity</div>
         <div class="value-item">Confidence</div>
-        <div class="value-item">Compassion</div>
+        <div class="value-item">Discipline</div>
         <div class="value-item">Purpose</div>
       </div>
     </div>
@@ -773,12 +662,12 @@
     <div class="wrap">
       <div class="split">
         <div class="reveal">
-          <h2>Not a fitness plan.<br>A <span class="accent-text">return to yourself.</span></h2>
+          <h2>High standards.<br><span class="accent-text">Feminine support.</span></h2>
           <p>
-            The Becoming is for the woman who has carried silent battles, hidden pain, pressure, fatigue, or self-doubt — and still knows there is something beautiful, strong, and alive inside her.
+            The Becoming is for mothers and women who feel disconnected from their body, confidence, femininity, or wellness — but know they are ready to commit to themselves again.
           </p>
           <p>
-            This is movement, confidence, beauty, faith, and identity woven into one simple, powerful journey.
+            This is not a harsh bootcamp. It is a premium, elegant, results-driven transformation built around graceful movement, clean habits, confidence, and sustainable feminine strength.
           </p>
         </div>
 
@@ -799,23 +688,23 @@
       <div class="story-panel reveal">
         <h2 class="text-center">The Three Seasons</h2>
         <p class="mx-auto text-center">
-          Same woman. Different seasons. A story of beauty, breaking, healing, and becoming.
+          Same woman. Different seasons. A journey from beauty, to struggle, to strength, wellness, and confidence restored.
         </p>
 
         <div class="story-steps">
           <div class="story-step">
             <strong>01 — The Princess</strong>
-            <span>Seen. Admired. Beautiful. The world sees the outside, but not always the battles behind the eyes.</span>
+            <span>Seen. Admired. Beautiful. The woman the world noticed, but not always the woman behind the image.</span>
           </div>
 
           <div class="story-step">
             <strong>02 — The Invisible</strong>
-            <span>Breaking quietly. Unseen. Invisible illness, emotional pain, isolation, and the silent battles no one saw.</span>
+            <span>Weight struggles, low confidence, fatigue, emotional pressure, motherhood, illness, isolation, or feeling unlike yourself.</span>
           </div>
 
           <div class="story-step">
             <strong>03 — The Return</strong>
-            <span>Grounded. Rebuilt. Unshakable. She doesn’t chase the crown. She becomes it.</span>
+            <span>Leaner. Healthier. Stronger. Softer. More confident. She doesn’t chase the crown. She becomes it.</span>
           </div>
         </div>
       </div>
@@ -831,25 +720,25 @@
       <div class="grid">
         <div class="card reveal delay-1">
           <div class="card-number">01</div>
-          <h3>Movement</h3>
+          <h3>Sculpted Movement</h3>
           <p>
-            Gentle but intentional training designed to help you reconnect with your body, posture, strength, and feminine flow.
+            Pilates, yoga, dance-inspired flow, and feminine-focused training to help you become leaner, more toned, more mobile, and more connected to your body.
           </p>
         </div>
 
         <div class="card reveal delay-2">
           <div class="card-number">02</div>
-          <h3>Confidence</h3>
+          <h3>Clean Wellness</h3>
           <p>
-            A rebuilding of presence — how you walk, how you carry yourself, how you see yourself, and how you show up.
+            Simple, sustainable guidance around clean eating, daily rhythm, consistency, energy, and healthier choices that support real transformation.
           </p>
         </div>
 
         <div class="card reveal delay-3">
           <div class="card-number">03</div>
-          <h3>Purpose</h3>
+          <h3>Feminine Confidence</h3>
           <p>
-            Beauty with depth. Strength with softness. A return to the woman God created you to be.
+            A rebuilding of presence — how you carry yourself, how you feel in your skin, and how you begin to see yourself again.
           </p>
         </div>
       </div>
@@ -863,21 +752,21 @@
       <div class="split">
         <div class="quote-box reveal">
           <p class="quote">
-            You are not alone. Your story matters. Healing is possible. Hope is real.
+            You are not failing. You are being invited back to yourself.
           </p>
-          <p class="highlight">We rise together.</p>
+          <p class="highlight">A healthier, stronger, more confident version of you is still there.</p>
         </div>
 
         <div class="reveal delay-1">
-          <h2>Grounded in <span class="accent-text">faith.</span></h2>
+          <h2>Luxury authority.<br><span class="accent-text">Real experience.</span></h2>
           <p>
-            This movement is softly rooted in God, Jesus, and the Holy Spirit — not as pressure, but as peace.
-          </p>
-          <p>
-            Faith reminds us that identity is not built by the world. It is restored by truth, love, grace, and purpose.
+            Leanda brings together elite movement, performance, modelling, discipline, femininity, and lived transformation.
           </p>
           <p class="highlight">
-            I am His. I am chosen. I am becoming.
+            Qualified Pilates Instructor • Former Dance Champion • Professional Dancer • International Contracts • Published Swimwear Model • Current Miss Swimsuit UK
+          </p>
+          <p>
+            The result is a premium feminine transformation experience: elegant, supportive, disciplined, and deeply personal.
           </p>
         </div>
       </div>
@@ -903,7 +792,7 @@
         <div class="card reveal delay-2">
           <div class="stars">★★★★★</div>
           <p>
-            “Leanda helped me reconnect with my body in a way that felt safe, feminine, and powerful.”
+            “Leanda helped me reconnect with my body in a way that felt safe, feminine, disciplined, and powerful.”
           </p>
           <div class="testimonial-author">Client Story</div>
           <div class="testimonial-role">Movement & Presence</div>
@@ -912,10 +801,10 @@
         <div class="card reveal delay-3">
           <div class="stars">★★★★★</div>
           <p>
-            “This felt different. It wasn’t about becoming someone else. It was about coming home to myself.”
+            “This felt different. It wasn’t about becoming someone else. It was about becoming her again.”
           </p>
           <div class="testimonial-author">Client Story</div>
-          <div class="testimonial-role">Healing & Purpose</div>
+          <div class="testimonial-role">Wellness & Purpose</div>
         </div>
       </div>
     </div>
@@ -929,40 +818,38 @@
         <div class="offer">
           <h2>The Becoming <span class="accent-text">Experience</span></h2>
           <p class="mx-auto">
-            A simple, personal, feminine transformation journey with Leanda Talbot — created for women ready to rise into confidence, beauty, purpose, and presence.
+            A premium feminine transformation journey with Leanda Talbot — created for women ready to become leaner, healthier, more toned, more confident, and more connected to themselves again.
           </p>
 
-          <div class="price">Private Guidance • Limited Capacity</div>
+          <div class="price">High Standards • Feminine Support • Limited Capacity</div>
 
           <div class="offer-grid">
             <div class="offer-item">
               <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Feminine Movement Guidance</p>
+              <p class="highlight">Pilates & Feminine Movement</p>
             </div>
 
             <div class="offer-item">
               <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Confidence & Presence Coaching</p>
+              <p class="highlight">Dance-Inspired Sculpting</p>
             </div>
 
             <div class="offer-item">
               <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Identity & Purpose Rebuilding</p>
+              <p class="highlight">Clean Eating & Wellness Rhythm</p>
             </div>
 
             <div class="offer-item">
               <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <p class="highlight">Personal Support & Accountability</p>
+              <p class="highlight">Confidence & Accountability</p>
             </div>
           </div>
 
           <form name="becoming-application" method="POST" data-netlify="true">
             <input type="hidden" name="form-name" value="becoming-application" />
-
             <input type="text" name="name" placeholder="Your Name..." required />
             <input type="email" name="email" placeholder="Your Email..." required />
             <textarea name="message" placeholder="Tell Leanda briefly what season you are in right now..."></textarea>
-
             <button class="btn" type="submit">Begin The Becoming</button>
           </form>
 
@@ -982,21 +869,28 @@
         <details class="faq-item">
           <summary>Who is The Becoming for?</summary>
           <p>
-            It is for women who feel ready to rebuild confidence, reconnect with their body, and step into a stronger, softer, more grounded version of themselves.
+            It is for mothers and women who are ready to commit to their body, confidence, femininity, wellness, and self-worth again.
           </p>
         </details>
 
         <details class="faq-item">
-          <summary>Is this only about fitness?</summary>
+          <summary>Is this a hardcore fitness programme?</summary>
           <p>
-            No. Movement is part of it, but the deeper focus is confidence, presence, identity, femininity, healing, and purpose.
+            No. The standard is high, but the approach is feminine, elegant, supportive, and sustainable. This is transformation without shame.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What does the method include?</summary>
+          <p>
+            Pilates, dance-inspired movement, yoga, feminine-focused training, clean eating guidance, wellness rhythm, confidence, and accountability.
           </p>
         </details>
 
         <details class="faq-item">
           <summary>Do I need experience?</summary>
           <p>
-            No. The journey can be shaped around your current season, your body, your confidence level, and your personal goals.
+            No. The journey can be shaped around your current season, your body, your confidence level, and your goals.
           </p>
         </details>
 
@@ -1015,7 +909,7 @@
       <div class="logo mb-16">Crystal <span>Princess</span></div>
       <p class="footer-text">
         © 2026 Leanda Talbot. Crystal Princess — Beauty With Purpose.<br>
-        Same Woman. Different Seasons.
+        You can become her again.
       </p>
     </div>
   </footer>
