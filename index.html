@@ -1,761 +1,1045 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The War Room Experience | Elite Training by Leanda Talbot</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #030303;
-            --text: #ffffff;
-            --muted: #888888;
-            --accent: #E10600;
-            --accent-glow: rgba(225, 6, 0, 0.3);
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.05);
-            --font-display: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Noise Texture Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        .wrap {
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 24px;
-        }
-
-        h1, h2, h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            line-height: 1.1;
-        }
-
-        h1 {
-            font-size: clamp(3.5rem, 8vw, 7.5rem);
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 24px;
-        }
-
-        p {
-            color: var(--muted);
-            font-size: 1.1rem;
-            font-weight: 300;
-            max-width: 600px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .highlight {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .accent-text {
-            color: var(--accent);
-            font-style: italic;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 40px;
-            background: var(--accent);
-            color: #fff;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            border-radius: 2px;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.2);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .btn:hover {
-            box-shadow: 0 0 30px var(--accent-glow);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn:hover::before {
-            transform: scaleY(1);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--text);
-        }
-        
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text);
-            box-shadow: none;
-        }
-
-        /* Layout & Sections */
-        .section {
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .section-separator {
-            height: 1px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-        }
-
-        .split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .split {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 24px 0;
-            z-index: 100;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(3, 3, 3, 0.8);
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav .wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding-top: 100px;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80vw;
-            height: 80vw;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
-            opacity: 0.5;
-            z-index: -1;
-            filter: blur(80px);
-        }
-
-        .hero h1 {
-            margin-bottom: 24px;
-            text-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            margin: 0 auto 40px;
-            font-size: 1.25rem;
-        }
-
-        /* Sponsors */
-        .sponsors {
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.01);
-            text-align: center;
-        }
-
-        .sponsors p {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin: 0 auto 24px;
-            color: #666;
-        }
-
-        .sponsors-grid {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            opacity: 0.5;
-            filter: grayscale(100%);
-            transition: var(--transition);
-        }
-        
-        .sponsors-grid:hover {
-            opacity: 0.8;
-        }
-
-        .sponsor-logo {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-        }
-
-        /* Cards */
-        .card {
-            padding: 40px;
-            border: 1px solid var(--border);
-            background: var(--card-bg);
-            border-radius: 4px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-            opacity: 0;
-            transition: var(--transition);
-            pointer-events: none;
-        }
-
-        .card:hover {
-            border-color: rgba(225, 6, 0, 0.5);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .card:hover::after {
-            opacity: 1;
-        }
-        
-        .card-number {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.05);
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            line-height: 1;
-            transition: var(--transition);
-        }
-
-        .card:hover .card-number {
-            color: rgba(225, 6, 0, 0.15);
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-        }
-
-        .card p {
-            margin-bottom: 0;
-        }
-
-        /* Quote Section */
-        .quote-box {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .quote-box::before {
-            content: '"';
-            font-family: var(--font-display);
-            font-size: 6rem;
-            color: var(--accent);
-            position: absolute;
-            top: -40px;
-            left: -20px;
-            opacity: 0.3;
-            line-height: 1;
-        }
-
-        .quote {
-            font-size: 2rem;
-            font-family: var(--font-display);
-            line-height: 1.3;
-            color: var(--text);
-            margin-bottom: 24px;
-        }
-
-        /* Testimonials */
-        .stars {
-            color: var(--accent);
-            margin-bottom: 16px;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-author {
-            margin-top: 24px;
-            font-weight: 600;
-            color: var(--text);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-        }
-        
-        .testimonial-role {
-            font-size: 0.75rem;
-            color: var(--muted);
-        }
-
-        /* Offer / Pricing */
-        .offer-wrapper {
-            position: relative;
-        }
-
-        .offer-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(100px);
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        .offer {
-            border: 1px solid rgba(225, 6, 0, 0.4);
-            padding: 80px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            text-align: center;
-            border-radius: 2px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .offer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .offer h2 {
-            font-size: 3rem;
-        }
-
-        .price {
-            font-size: 2rem;
-            font-family: var(--font-display);
-            color: var(--accent);
-            margin: 24px 0 40px;
-            display: inline-block;
-            border-bottom: 1px solid rgba(225, 6, 0, 0.3);
-            padding-bottom: 8px;
-        }
-
-        .offer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: left;
-            margin-bottom: 48px;
-        }
-        
-        .offer-item {
-            padding: 20px;
-            border: 1px solid var(--border);
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        
-        .offer-item svg {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            fill: var(--accent);
-            margin-top: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .offer {
-                padding: 40px 24px;
-            }
-        }
-
-        /* FAQ */
-        .faq-item {
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        .faq-item summary {
-            padding: 24px 0;
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text);
-            transition: var(--transition);
-        }
-        
-        .faq-item summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .faq-item summary:hover {
-            color: var(--accent);
-        }
-
-        .faq-item summary::after {
-            content: '+';
-            font-size: 1.5rem;
-            font-weight: 300;
-            transition: var(--transition);
-        }
-
-        .faq-item[open] summary::after {
-            transform: rotate(45deg);
-            color: var(--accent);
-        }
-
-        .faq-item p {
-            padding-bottom: 24px;
-            margin: 0;
-            max-width: 100%;
-        }
-
-        /* Footer */
-        footer {
-            padding: 60px 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Utility & Component Classes */
-        .text-center { text-align: center; }
-        .mx-auto { margin: 0 auto; }
-        .mb-16 { margin-bottom: 16px; }
-        .mb-40 { margin-bottom: 40px; }
-        .mb-60 { margin-bottom: 60px; }
-        .max-w-800 { max-width: 800px; }
-        
-        .nav-btn {
-            padding: 10px 24px;
-            font-size: 0.85rem;
-        }
-
-        .application-note {
-            text-align: center;
-            margin: 24px auto 0;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .footer-text {
-            margin: 0 auto;
-            font-size: 0.85rem;
-        }
-
-        /* Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-        
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Becoming | Crystal Princess by Leanda Talbot</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f6f2ef;
+      --bg-soft: #f9e7ec;
+      --text: #333333;
+      --muted: #6f6464;
+      --accent: #cfa5a9;
+      --accent-deep: #a86c75;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.22);
+      --rose-glow: rgba(247, 182, 194, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.55);
+      --border: rgba(168, 108, 117, 0.18);
+      --dark: #2b2728;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top left, rgba(247, 182, 194, 0.45), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.22), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.035"/%3E%3C/svg%3E');
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.05;
+    }
+
+    h1 {
+      font-size: clamp(3.6rem, 8.5vw, 8rem);
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.7rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      font-weight: 300;
+      max-width: 650px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .highlight {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .accent-text {
+      color: var(--accent-deep);
+      font-style: italic;
+    }
+
+    .gold-text {
+      color: var(--gold);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 42px;
+      background: linear-gradient(135deg, var(--accent-deep), #d9a8b0);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.45);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 18px 45px rgba(168, 108, 117, 0.24);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold), #f2d98b);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 55px rgba(212, 175, 55, 0.28);
+    }
+
+    .btn:hover::before {
+      transform: scaleX(1);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.35);
+      border: 1px solid var(--border);
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-separator {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .split {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 22px 0;
+      z-index: 100;
+      transition: var(--transition);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(246, 242, 239, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .logo span {
+      color: var(--accent-deep);
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .nav-btn {
+      padding: 10px 24px;
+      font-size: 0.8rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding-top: 110px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88vw;
+      height: 88vw;
+      background:
+        radial-gradient(circle, rgba(247, 182, 194, 0.42) 0%, transparent 48%),
+        radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 64%);
+      opacity: 0.9;
+      z-index: -1;
+      filter: blur(70px);
+    }
+
+    .hero h1 {
+      margin-bottom: 26px;
+      text-shadow: 0 20px 55px rgba(168,108,117,0.16);
+    }
+
+    .hero .kicker {
+      margin: 0 auto 18px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      margin: 0 auto 42px;
+      font-size: 1.22rem;
+    }
+
+    .script-line {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 4rem);
+      color: var(--accent-deep);
+      text-transform: none;
+      letter-spacing: -0.01em;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .brand-strip {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.28);
+      text-align: center;
+    }
+
+    .brand-strip p {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin: 0 auto 20px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .values-row {
+      display: flex;
+      justify-content: center;
+      gap: 34px;
+      flex-wrap: wrap;
+      color: var(--text);
+      opacity: 0.85;
+    }
+
+    .value-item {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    .card {
+      padding: 40px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 24px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(80, 45, 52, 0.06);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+      opacity: 0;
+      transition: var(--transition);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: rgba(212, 175, 55, 0.55);
+      transform: translateY(-8px);
+      box-shadow: 0 28px 70px rgba(168, 108, 117, 0.14);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: rgba(168, 108, 117, 0.12);
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-number {
+      color: rgba(212, 175, 55, 0.28);
+    }
+
+    .card h3 {
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      margin-bottom: 0;
+    }
+
+    .quote-box {
+      position: relative;
+      padding: 48px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.72), rgba(249,231,236,0.58));
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 70px rgba(168, 108, 117, 0.12);
+    }
+
+    .quote-box::before {
+      content: '“';
+      font-family: var(--font-display);
+      font-size: 7rem;
+      color: var(--gold);
+      position: absolute;
+      top: -26px;
+      left: 18px;
+      opacity: 0.28;
+      line-height: 1;
+    }
+
+    .quote {
+      font-size: clamp(1.75rem, 3vw, 2.55rem);
+      font-family: var(--font-display);
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 24px;
+      max-width: 100%;
+    }
+
+    .story-panel {
+      background: linear-gradient(135deg, #332d2f, #171415);
+      color: #fff;
+      border-radius: 34px;
+      padding: 70px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(45, 31, 35, 0.26);
+    }
+
+    .story-panel::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at top left, rgba(247,182,194,0.28), transparent 38%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.18), transparent 34%);
+      pointer-events: none;
+    }
+
+    .story-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .story-panel h2,
+    .story-panel .highlight {
+      color: #fff;
+    }
+
+    .story-panel p {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .story-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .story-step {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.045);
+      padding: 28px;
+      border-radius: 22px;
+    }
+
+    .story-step strong {
+      color: #fff;
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      margin-bottom: 10px;
+    }
+
+    .story-step span {
+      color: rgba(255,255,255,0.66);
+      font-size: 0.95rem;
+    }
+
+    .stars {
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 3px;
+    }
+
+    .testimonial-author {
+      margin-top: 24px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+    }
+
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .offer-wrapper {
+      position: relative;
+    }
+
+    .offer-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, var(--rose-glow) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    .offer {
+      border: 1px solid rgba(212, 175, 55, 0.34);
+      padding: 78px;
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      text-align: center;
+      border-radius: 34px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(168,108,117,0.16);
+    }
+
+    .offer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 12%;
+      width: 76%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .offer h2 {
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+    }
+
+    .price {
+      font-size: 1.35rem;
+      font-family: var(--font-display);
+      color: var(--accent-deep);
+      margin: 24px 0 40px;
+      display: inline-block;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+      padding-bottom: 8px;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      text-align: left;
+      margin-bottom: 46px;
+    }
+
+    .offer-item {
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.48);
+      border-radius: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .offer-item svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      fill: var(--gold);
+      margin-top: 3px;
+    }
+
+    form {
+      max-width: 680px;
+      margin: 42px auto 0;
+      display: grid;
+      gap: 16px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.78);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(212,175,55,0.12);
+    }
+
+    .application-note {
+      text-align: center;
+      margin: 22px auto 0;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .faq-item summary {
+      padding: 24px 0;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary:hover {
+      color: var(--accent-deep);
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.6rem;
+      font-weight: 300;
+      transition: var(--transition);
+      color: var(--gold);
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item p {
+      padding-bottom: 24px;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    footer {
+      padding: 64px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-text {
+      margin: 0 auto;
+      font-size: 0.86rem;
+    }
+
+    .text-center { text-align: center; }
+    .mx-auto { margin: 0 auto; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-40 { margin-bottom: 40px; }
+    .mb-60 { margin-bottom: 60px; }
+    .max-w-800 { max-width: 800px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 18px 0;
+      }
+
+      .logo {
+        font-size: 1.1rem;
+      }
+
+      .nav-btn {
+        padding: 9px 16px;
+        font-size: 0.72rem;
+      }
+
+      .section {
+        padding: 86px 0;
+      }
+
+      .hero {
+        min-height: 92vh;
+      }
+
+      .story-panel {
+        padding: 42px 24px;
+        border-radius: 26px;
+      }
+
+      .offer {
+        padding: 44px 22px;
+        border-radius: 26px;
+      }
+
+      .card {
+        padding: 32px 26px;
+      }
+
+      .quote-box {
+        padding: 38px 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="wrap">
-            <div class="logo">War<span>Room</span></div>
-            <a class="btn btn-outline nav-btn" href="#apply">Apply Now</a>
-        </div>
-    </nav>
+  <nav>
+    <div class="wrap">
+      <div class="logo">Crystal <span>Princess</span></div>
+      <a class="btn btn-outline nav-btn" href="#apply">Begin</a>
+    </div>
+  </nav>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="wrap">
-            <h1 class="reveal">Enter The<br><span class="accent-text">War Room</span></h1>
-            <p class="reveal delay-1">I work with a selective group of committed women to elevate their confidence, presence, and physique through high-level bespoke movement.</p>
-            <div class="reveal delay-2">
-                <a class="btn" href="#apply">Submit Application</a>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="wrap">
+      <p class="kicker reveal">Beauty With Purpose</p>
+      <h1 class="reveal">
+        The Becoming
+        <span class="script-line">Same Woman. Different Seasons.</span>
+      </h1>
+      <p class="reveal delay-1">
+        A feminine movement for women ready to rebuild confidence, presence, posture, and identity from the inside out.
+      </p>
+      <div class="reveal delay-2">
+        <a class="btn" href="#apply">Begin The Becoming</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="brand-strip reveal">
+    <div class="wrap">
+      <p>The Crystal Princess Movement</p>
+      <div class="values-row">
+        <div class="value-item">Empowerment</div>
+        <div class="value-item">Inclusivity</div>
+        <div class="value-item">Confidence</div>
+        <div class="value-item">Compassion</div>
+        <div class="value-item">Purpose</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="reveal">
+          <h2>Not a fitness plan.<br>A <span class="accent-text">return to yourself.</span></h2>
+          <p>
+            The Becoming is for the woman who has carried silent battles, hidden pain, pressure, fatigue, or self-doubt — and still knows there is something beautiful, strong, and alive inside her.
+          </p>
+          <p>
+            This is movement, confidence, beauty, faith, and identity woven into one simple, powerful journey.
+          </p>
+        </div>
+
+        <div class="quote-box reveal delay-1">
+          <p class="quote">
+            I didn’t lose my crown… I discovered what it truly means to wear it.
+          </p>
+          <p class="highlight">— Leanda Talbot</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="story-panel reveal">
+        <h2 class="text-center">The Three Seasons</h2>
+        <p class="mx-auto text-center">
+          Same woman. Different seasons. A story of beauty, breaking, healing, and becoming.
+        </p>
+
+        <div class="story-steps">
+          <div class="story-step">
+            <strong>01 — The Princess</strong>
+            <span>Seen. Admired. Beautiful. The world sees the outside, but not always the battles behind the eyes.</span>
+          </div>
+
+          <div class="story-step">
+            <strong>02 — The Invisible</strong>
+            <span>Breaking quietly. Unseen. Invisible illness, emotional pain, isolation, and the silent battles no one saw.</span>
+          </div>
+
+          <div class="story-step">
+            <strong>03 — The Return</strong>
+            <span>Grounded. Rebuilt. Unshakable. She doesn’t chase the crown. She becomes it.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal text-center mb-60">The <span class="accent-text">Method</span></h2>
+
+      <div class="grid">
+        <div class="card reveal delay-1">
+          <div class="card-number">01</div>
+          <h3>Movement</h3>
+          <p>
+            Gentle but intentional training designed to help you reconnect with your body, posture, strength, and feminine flow.
+          </p>
+        </div>
+
+        <div class="card reveal delay-2">
+          <div class="card-number">02</div>
+          <h3>Confidence</h3>
+          <p>
+            A rebuilding of presence — how you walk, how you carry yourself, how you see yourself, and how you show up.
+          </p>
+        </div>
+
+        <div class="card reveal delay-3">
+          <div class="card-number">03</div>
+          <h3>Purpose</h3>
+          <p>
+            Beauty with depth. Strength with softness. A return to the woman God created you to be.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="quote-box reveal">
+          <p class="quote">
+            You are not alone. Your story matters. Healing is possible. Hope is real.
+          </p>
+          <p class="highlight">We rise together.</p>
+        </div>
+
+        <div class="reveal delay-1">
+          <h2>Grounded in <span class="accent-text">faith.</span></h2>
+          <p>
+            This movement is softly rooted in God, Jesus, and the Holy Spirit — not as pressure, but as peace.
+          </p>
+          <p>
+            Faith reminds us that identity is not built by the world. It is restored by truth, love, grace, and purpose.
+          </p>
+          <p class="highlight">
+            I am His. I am chosen. I am becoming.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal text-center mb-60">Women are not looking for more pressure.<br><span class="accent-text">They are looking for a way back.</span></h2>
+
+      <div class="grid">
+        <div class="card reveal delay-1">
+          <div class="stars">★★★★★</div>
+          <p>
+            “I didn’t just feel stronger. I felt softer, clearer, more confident, and more like myself again.”
+          </p>
+          <div class="testimonial-author">Client Story</div>
+          <div class="testimonial-role">Confidence & Identity</div>
+        </div>
+
+        <div class="card reveal delay-2">
+          <div class="stars">★★★★★</div>
+          <p>
+            “Leanda helped me reconnect with my body in a way that felt safe, feminine, and powerful.”
+          </p>
+          <div class="testimonial-author">Client Story</div>
+          <div class="testimonial-role">Movement & Presence</div>
+        </div>
+
+        <div class="card reveal delay-3">
+          <div class="stars">★★★★★</div>
+          <p>
+            “This felt different. It wasn’t about becoming someone else. It was about coming home to myself.”
+          </p>
+          <div class="testimonial-author">Client Story</div>
+          <div class="testimonial-role">Healing & Purpose</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="apply">
+    <div class="wrap">
+      <div class="offer-wrapper reveal">
+        <div class="offer-glow"></div>
+
+        <div class="offer">
+          <h2>The Becoming <span class="accent-text">Experience</span></h2>
+          <p class="mx-auto">
+            A simple, personal, feminine transformation journey with Leanda Talbot — created for women ready to rise into confidence, beauty, purpose, and presence.
+          </p>
+
+          <div class="price">Private Guidance • Limited Capacity</div>
+
+          <div class="offer-grid">
+            <div class="offer-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <p class="highlight">Feminine Movement Guidance</p>
             </div>
-        </div>
-    </section>
 
-    <section class="sponsors reveal">
-        <div class="wrap">
-            <p>The standard demanded by</p>
-            <div class="sponsors-grid">
-                <div class="sponsor-logo">LUCINI LONDON</div>
-                <div class="sponsor-logo">JUSTSTRONG</div>
+            <div class="offer-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <p class="highlight">Confidence & Presence Coaching</p>
             </div>
-        </div>
-    </section>
 
-    <section class="section">
-        <div class="wrap">
-            <div class="split">
-                <div class="reveal">
-                    <h2>Selected. Trained.<br>Now <span class="accent-text">Selecting.</span></h2>
-                    <p>Leanda’s training is born from the relentless discipline of elite dance and structured coaching. The same uncompromising standard now defines The War Room.</p>
-                    <p>This space is not for everyone. It is for women who are ready to commit deeply and transform completely.</p>
-                </div>
-                <div class="quote-box reveal delay-1">
-                    <p class="quote">“I was chosen by a coach who saw something in me. Now, I choose who I train.”</p>
-                    <p class="highlight">— Leanda Talbot</p>
-                </div>
+            <div class="offer-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <p class="highlight">Identity & Purpose Rebuilding</p>
             </div>
-        </div>
-    </section>
 
-    <div class="section-separator"></div>
-
-    <section class="section">
-        <div class="wrap">
-            <h2 class="reveal text-center mb-60">Designed <span class="accent-text">Movement</span></h2>
-            <div class="grid">
-                <div class="card reveal delay-1">
-                    <div class="card-number">01</div>
-                    <h3>Pilates</h3>
-                    <p>Build unshakeable structure, deep core control, and foundational strength. We forge the architecture of your body.</p>
-                </div>
-                <div class="card reveal delay-2">
-                    <div class="card-number">02</div>
-                    <h3>Dance</h3>
-                    <p>Cultivate powerful presence, fluid flow, and a new physical identity. Movement becomes a statement of who you are.</p>
-                </div>
-                <div class="card reveal delay-3">
-                    <div class="card-number">03</div>
-                    <h3>Evolution</h3>
-                    <p>Merge structure with flow. The result is total transformation—you become a completely different woman.</p>
-                </div>
+            <div class="offer-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <p class="highlight">Personal Support & Accountability</p>
             </div>
-        </div>
-    </section>
-    
-    <div class="section-separator"></div>
-    
-    <section class="section">
-        <div class="wrap">
-            <h2 class="reveal text-center mb-60">The <span class="accent-text">Standard</span></h2>
-            <div class="grid">
-                <div class="card reveal delay-1">
-                    <div class="stars">★★★★★</div>
-                    <p>"Leanda doesn't just change your body; she reconstructs how you carry yourself in the world. The War Room is entirely unmatched."</p>
-                    <div class="testimonial-author">Sarah M.</div>
-                    <div class="testimonial-role">Executive Director</div>
-                </div>
-                <div class="card reveal delay-2">
-                    <div class="stars">★★★★★</div>
-                    <p>"An intensive, elite experience. The level of detail and discipline is staggering. I walked out stronger, leaner, and fiercely confident."</p>
-                    <div class="testimonial-author">Elena V.</div>
-                    <div class="testimonial-role">Founder & CEO</div>
-                </div>
-                <div class="card reveal delay-3">
-                    <div class="stars">★★★★★</div>
-                    <p>"This isn't fitness. It's an overhaul of your physical identity. Leanda demands your best and gives you the tools to exceed it."</p>
-                    <div class="testimonial-author">Jessica T.</div>
-                    <div class="testimonial-role">Creative Director</div>
-                </div>
-            </div>
-        </div>
-    </section>
+          </div>
 
-    <section class="section" id="apply">
-        <div class="wrap">
-            <div class="offer-wrapper reveal">
-                <div class="offer-glow"></div>
-                <div class="offer">
-                    <h2>The War Room <span class="accent-text">Experience</span></h2>
-                    <p class="mx-auto">A highly intensive 6–8 week 1:1 physical and mental transformation.</p>
-                    <div class="price">From €1,200</div>
-                    
-                    <div class="offer-grid">
-                        <div class="offer-item">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            <p class="highlight">Personalised Pilates Structure</p>
-                        </div>
-                        <div class="offer-item">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            <p class="highlight">Custom-Designed Movement</p>
-                        </div>
-                        <div class="offer-item">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            <p class="highlight">Confidence & Presence Coaching</p>
-                        </div>
-                        <div class="offer-item">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            <p class="highlight">Direct Support & Accountability</p>
-                        </div>
-                    </div>
-                    
-                    <a class="btn" href="#">Apply via WhatsApp</a>
-                    <p class="application-note">Application Only. Limited Capacity.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <div class="section-separator"></div>
-    
-    <section class="section">
-        <div class="wrap max-w-800">
-            <h2 class="reveal text-center mb-40">Intelligence</h2>
-            <div class="reveal delay-1">
-                <details class="faq-item">
-                    <summary>Who is The War Room for?</summary>
-                    <p>The War Room is exclusively for highly committed women who demand the highest standard for their physical and mental presence. It is not for beginners unready to push their limits.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>What is the application process?</summary>
-                    <p>Selection is rigorous. You will apply via WhatsApp, where we will discuss your history, current physical state, and goals. Acceptance is based on readiness and alignment with the program's intensity.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>Where does the training take place?</summary>
-                    <p>Sessions are conducted 1:1 in a private, high-end environment or via an elite remote coaching setup, depending on your location and lifestyle demands.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>What results can I expect?</summary>
-                    <p>A fundamental shift in how you carry yourself. Expect a leaner, stronger, more agile physique combined with an undeniable aura of confidence and presence.</p>
-                </details>
-            </div>
-        </div>
-    </section>
+          <form name="becoming-application" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="becoming-application" />
 
-    <footer>
-        <div class="wrap">
-            <div class="logo mb-16">War<span>Room</span></div>
-            <p class="footer-text">© 2026 Leanda Talbot. All rights reserved. <br>The War Room is an exclusive entity.</p>
-        </div>
-    </footer>
+            <input type="text" name="name" placeholder="Your Name..." required />
+            <input type="email" name="email" placeholder="Your Email..." required />
+            <textarea name="message" placeholder="Tell Leanda briefly what season you are in right now..."></textarea>
 
-    <script>
-        // Scroll Reveal Animation
-        const reveals = document.querySelectorAll('.reveal');
-        
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        
-        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            });
-        }, revealOptions);
-        
-        reveals.forEach(reveal => {
-            revealOnScroll.observe(reveal);
-        });
-    </script>
+            <button class="btn" type="submit">Begin The Becoming</button>
+          </form>
+
+          <p class="application-note">This is not just my story. This is our movement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="section">
+    <div class="wrap max-w-800">
+      <h2 class="reveal text-center mb-40">Questions</h2>
+
+      <div class="reveal delay-1">
+        <details class="faq-item">
+          <summary>Who is The Becoming for?</summary>
+          <p>
+            It is for women who feel ready to rebuild confidence, reconnect with their body, and step into a stronger, softer, more grounded version of themselves.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is this only about fitness?</summary>
+          <p>
+            No. Movement is part of it, but the deeper focus is confidence, presence, identity, femininity, healing, and purpose.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do I need experience?</summary>
+          <p>
+            No. The journey can be shaped around your current season, your body, your confidence level, and your personal goals.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I begin?</summary>
+          <p>
+            Submit the short form and Leanda will review your message. If it feels aligned, she will contact you directly.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo mb-16">Crystal <span>Princess</span></div>
+      <p class="footer-text">
+        © 2026 Leanda Talbot. Crystal Princess — Beauty With Purpose.<br>
+        Same Woman. Different Seasons.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      });
+    }, revealOptions);
+
+    reveals.forEach(reveal => {
+      revealOnScroll.observe(reveal);
+    });
+  </script>
+
 </body>
 </html>
