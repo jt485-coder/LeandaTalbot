@@ -286,42 +286,102 @@
       margin-left: 24px;
     }
 
-    .brand-logos {
+    .brand-partners {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      opacity: .72;
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: .34em;
-      font-size: 1.62rem;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+      text-align: left;
     }
 
-    .brand-logos small {
-      display: block;
-      font-family: var(--font-body);
-      font-size: .65rem;
-      letter-spacing: .35em;
-      margin-top: 6px;
-    }
-
-    .brand-logos a {
-      display: block;
+    .brand-feature,
+    .partner-tile {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.38);
       transition: var(--transition);
     }
 
-    .brand-logos a:hover {
-      color: var(--accent-deep);
+    .brand-feature {
+      display: grid;
+      align-content: center;
+      min-height: 176px;
+      padding: 32px 36px;
+    }
+
+    .brand-feature:hover,
+    .partner-tile:hover {
+      border-color: rgba(157,122,100,.34);
+      box-shadow: 0 18px 48px rgba(140,104,78,.07);
+      transform: translateY(-2px);
+    }
+
+    .partner-label,
+    .partner-copy,
+    .brand-code {
+      font-family: var(--font-body);
+      text-transform: uppercase;
+    }
+
+    .partner-label {
+      letter-spacing: .22em;
+      font-size: .66rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .partner-name {
+      display: block;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .28em;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .partner-name small,
+    .partner-tile small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: .65rem;
+      letter-spacing: .32em;
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .partner-copy {
+      letter-spacing: .12em;
+      font-size: .68rem;
+      color: var(--muted);
+      margin-top: 18px;
+      line-height: 1.7;
     }
 
     .brand-code {
       display: block;
-      font-family: var(--font-body);
-      font-size: .66rem;
+      font-size: .7rem;
       letter-spacing: .18em;
       margin-top: 8px;
-      color: var(--text);
-      font-weight: 600;
+      color: var(--accent-deep);
+      font-weight: 700;
+    }
+
+    .partner-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .partner-tile {
+      display: grid;
+      align-content: center;
+      min-height: 77px;
+      padding: 22px 26px;
+    }
+
+    .partner-tile .partner-name {
+      font-size: 1.34rem;
+      letter-spacing: .24em;
     }
 
     /* FOUNDER */
@@ -675,16 +735,35 @@
         max-width: 18vw;
       }
 
-      .brand-logos,
+      .brand-partners,
       .cards,
       .story-grid,
       .founder-inner {
         grid-template-columns: 1fr;
       }
 
-      .brand-logos {
-        font-size: 1.28rem;
+      .brand-partners,
+      .partner-list {
         gap: 22px;
+      }
+
+      .brand-feature,
+      .partner-tile {
+        text-align: center;
+      }
+
+      .brand-feature {
+        padding: 30px 20px;
+      }
+
+      .partner-name {
+        font-size: 1.42rem;
+        letter-spacing: .16em;
+      }
+
+      .partner-tile .partner-name {
+        font-size: 1.22rem;
+        letter-spacing: .13em;
       }
 
       .footer-affiliate {
@@ -779,24 +858,29 @@
 
   <section class="brand-strip">
     <div class="wrap">
-      <div class="brand-strip-title">The Standard Demanded By</div>
+      <div class="brand-strip-title">Ambassador Partners</div>
 
-      <div class="brand-logos">
-        <div>
-          <a href="https://ambassador.lucinilondon.com/" target="_blank" rel="noopener sponsored">
+      <div class="brand-partners">
+        <a class="brand-feature" href="https://ambassador.lucinilondon.com/" target="_blank" rel="noopener sponsored">
+          <span class="partner-label">Featured partner</span>
+          <span class="partner-name">
             Lucini
             <small>London</small>
-            <span class="brand-code">Use code LEANDA15 for 15% off</span>
+          </span>
+          <span class="partner-copy">Leanda is a Lucini London ambassador.</span>
+          <span class="brand-code">Use code LEANDA15 for 15% off</span>
+        </a>
+
+        <div class="partner-list">
+          <a class="partner-tile" href="https://juststrong.com/" target="_blank" rel="noopener">
+            <span class="partner-name">Just Strong</span>
+            <small>Women's activewear</small>
           </a>
-        </div>
 
-        <div>
-          Juststrong
-        </div>
-
-        <div>
-          Move
-          <small>With Intention</small>
+          <div class="partner-tile">
+            <span class="partner-name">Move</span>
+            <small>With Intention</small>
+          </div>
         </div>
       </div>
     </div>
