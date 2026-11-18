@@ -1003,6 +1003,20 @@
         font-size: clamp(2.4rem, 11vw, 4rem);
       }
     }
+
+    /* Press feature: Meath Chronicle, October 2026 */
+    .press-feature { scroll-margin-top: 100px; padding: 64px 0; background: var(--bg-soft); border-block: 1px solid var(--line); }
+    .press-feature-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; }
+    .press-feature-copy { max-width: 760px; }
+    .press-feature h2 { font-size: clamp(2rem, 3vw, 2.8rem); margin: 16px 0; }
+    .press-feature-date { display: block; margin-top: 12px; font-size: .75rem; color: var(--muted); }
+    .press-feature .btn { white-space: nowrap; }
+    .press-feature .btn:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 5px; }
+    @media (max-width: 760px) {
+      .press-feature { padding: 44px 0; }
+      .press-feature-inner { grid-template-columns: 1fr; gap: 24px; }
+      .press-feature .btn { justify-self: start; white-space: normal; }
+    }
   </style>
 </head>
 
@@ -1114,6 +1128,18 @@
           <a class="btn btn-outline" href="#apply">Learn More About Leanda</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="press-feature" id="press" aria-labelledby="press-title">
+    <div class="wrap press-feature-inner">
+      <div class="press-feature-copy">
+        <div class="kicker">Featured in the Meath Chronicle</div>
+        <h2 id="press-title">A story of resilience, purpose<br>and returning to the spotlight.</h2>
+        <p>Leanda shares her journey with epilepsy, her return to the stage and her passion for raising awareness of invisible illnesses.</p>
+        <time class="press-feature-date" datetime="2026-10-01">1 October 2026 &middot; Sally Harding, Meath Chronicle</time>
+      </div>
+      <a class="btn btn-outline" href="https://www.meathchronicle.ie/2026/10/01/donacarney-woman-turns-epilepsy-journey-into-a-victorious-return-to-the-spotlight/" target="_blank" rel="noopener noreferrer" aria-label="Read Leanda's feature in the Meath Chronicle (opens in a new tab)">Read the feature &rarr;</a>
     </div>
   </section>
 
